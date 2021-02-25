@@ -1,0 +1,8 @@
+{
+  "name": "react-native-code-crew-template",
+  "version": "1.0.0",
+  "description": "React Native Template",
+  "repository": "git@github.com:Esemesek/PajdPajper/code-crew-rn-template.git",
+  "author": "Shone <dj.shone@gmail.com>",
+  "license": "MIT"
+}
