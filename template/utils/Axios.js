@@ -2,7 +2,7 @@ import axios from 'axios'
 import AsyncStorage from '@react-native-community/async-storage';
 
 const Axios = axios.create({
-  baseURL: 'https://pathlyte-18928.botics.co/'
+  baseURL: 'https://#'
 })
 
 Axios.interceptors.request.use(
