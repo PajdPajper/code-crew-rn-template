@@ -1,114 +1,39 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import React, {useState} from 'react';
+import {ActivityIndicator} from 'react-native';
+import {AppNavigator} from './navigation/navigator';
+import {Root} from 'native-base';
+import {useSelector, Provider} from 'react-redux';
+import {createStore, combineReducers, applyMiddleware} from 'redux';
+import ReduxThunk from 'redux-thunk';
+import authReducer from './store/reducers/auth';
 
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
-
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const App: () => React$Node = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text>
-                CodeCrew Custom Scaffold
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
-  );
-};
-
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
+const rootReducer = combineReducers({
+  auth: authReducer,
 });
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
-export default App;
+console.disableYellowBox = true;
+
+export default (props) => {
+  // let [fontsLoaded] = useFonts({
+  //   Regular: require('./assets/Fonts/TitilliumWeb/TitilliumWeb-Regular.ttf'),
+  //   Bold: require('./assets/Fonts/TitilliumWeb/TitilliumWeb-Bold.ttf'),
+  //   SemiBold: require('./assets/Fonts/TitilliumWeb/TitilliumWeb-SemiBold.ttf'),
+  //   Italic: require('./assets/Fonts/TitilliumWeb/TitilliumWeb-Italic.ttf'),
+  //   Roboto: require('native-base/Fonts/Roboto.ttf'),
+  //   Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+  // });
+  const [fontsLoaded, setFontsLoaded] = useState(true);
+
+  if (!fontsLoaded) {
+    return <ActivityIndicator />;
+  } else {
+    return (
+        <Root>
+          <Provider store={store}>
+            <AppNavigator />
+          </Provider>
+        </Root>
+    );
+  }
+};

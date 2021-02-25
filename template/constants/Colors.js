@@ -1,0 +1,16 @@
+export default {
+  PRIMARY: '#545DFF',
+  SECONDARY: '#282842',
+  PRIMARY_LIGHT: '#e6e7fd',
+  GREY: '#6F758B',
+  LIGHT_GREY: '#E4E4E4',
+  WHITE: 'white',
+  DARK: '#485068',
+  DARK_GREY: '#78839C',
+  BLACK: '#0D1F3C',
+  YELLOW: '#FED13A',
+  SUCCESS: '#75BF72',
+  DANGER: '#FF2020',
+  WHITE_DARKEN: '#FAFAFA',
+  OPAQUE: 'rgba(255, 255 , 255, 0.45)'
+}
